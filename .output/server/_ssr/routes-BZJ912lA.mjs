@@ -1,188 +1,16 @@
 import { n as __toESM } from "../_runtime.mjs";
 import { a as AccordionTrigger$1, c as require_react, i as AccordionItem$1, l as require_jsx_runtime, n as AccordionContent$1, r as AccordionHeader, s as Slot, t as Accordion$1 } from "../_libs/@radix-ui/react-accordion+[...].mjs";
-import { n as isWhatsAppConfigured, r as siteConfig, t as CURRENCY_INFO } from "./site-CAS6z0tO.mjs";
-import { A as ArrowLeft, C as ClipboardCheck, D as Bug, E as Camera, O as BookOpen, S as CreditCard, T as Check, _ as Mail, a as Tag, b as Globe, c as ShoppingBasket, d as PiggyBank, f as Phone, g as MapPin, h as MapPinned, i as Thermometer, k as ArrowRight, l as ShieldCheck, m as MessageCircle, n as Truck, o as Syringe, p as Package, r as TriangleAlert, s as Star, t as Zap, u as ShieldAlert, v as Image, w as ChevronDown, x as Droplets, y as House } from "../_libs/lucide-react.mjs";
+import { n as siteConfig, t as isWhatsAppConfigured } from "./site-Cw0SVFfM.mjs";
+import { C as Camera, D as ArrowLeft, E as ArrowRight, S as ChevronDown, T as BookOpen, _ as House, a as Syringe, b as CreditCard, c as ShieldCheck, d as Package, f as MessageCircle, g as Image, h as Mail, i as Tag, l as ShieldAlert, m as MapPin, n as TriangleAlert, o as Star, p as MapPinned, r as Thermometer, s as ShoppingBasket, t as Truck, u as Phone, v as Globe, w as Bug, x as ClipboardCheck, y as Droplets } from "../_libs/lucide-react.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { t as useEmblaCarousel } from "../_libs/embla-carousel-react+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BU3jAqk3.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BZJ912lA.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-function formatRemaining(ms) {
-	const totalMinutes = Math.max(0, Math.floor(ms / 6e4));
-	const days = Math.floor(totalMinutes / 1440);
-	const hours = Math.floor(totalMinutes % 1440 / 60);
-	const minutes = totalMinutes % 60;
-	if (days > 0) return `${days}d ${hours}h ${minutes}m`;
-	if (hours > 0) return `${hours}h ${minutes}m`;
-	return `${minutes}m`;
-}
-/**
-* Slim flash-sale announcement bar. A countdown timer is shown ONLY when a
-* genuine sale deadline has been configured in src/config/site.ts — it is a
-* fixed timestamp, so it persists across refreshes and never restarts.
-*/
-function AnnouncementBar() {
-	const deadline = siteConfig.sale.deadline ? new Date(siteConfig.sale.deadline) : null;
-	const hasDeadline = deadline != null && !Number.isNaN(deadline.getTime());
-	const [now, setNow] = (0, import_react.useState)(null);
-	(0, import_react.useEffect)(() => {
-		if (!hasDeadline) return;
-		const tick = () => setNow(Date.now());
-		tick();
-		const timer = setInterval(tick, 3e4);
-		return () => clearInterval(timer);
-	}, [hasDeadline]);
-	const remainingMs = hasDeadline && now != null ? deadline.getTime() - now : null;
-	const showTimer = remainingMs != null && remainingMs > 0;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "bg-brand-green text-white",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-center text-xs font-semibold sm:text-sm",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-				className: "inline-flex items-center gap-1.5",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Zap, {
-					className: "h-3.5 w-3.5",
-					"aria-hidden": "true"
-				}), siteConfig.sale.headline]
-			}), showTimer && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-				className: "rounded-full bg-white/20 px-2.5 py-0.5 text-xs tabular-nums",
-				children: ["Ends in ", formatRemaining(remainingMs)]
-			})]
-		})
-	});
-}
-function roundForCurrency(amount, currency) {
-	const factor = 10 ** CURRENCY_INFO[currency].decimals;
-	return Math.round(amount * factor) / factor;
-}
-function computeOfferPricing(offer) {
-	const currency = siteConfig.currency.default;
-	const unconfigured = {
-		configured: false,
-		valid: true,
-		originalPrice: null,
-		savings: null,
-		finalPrice: null,
-		discountPercent: null
-	};
-	const original = offer.originalPrice;
-	const percent = offer.discountPercent;
-	const promo = offer.promoPrice;
-	if (original == null && promo == null && percent == null) return unconfigured;
-	if (percent != null && promo != null) return {
-		...unconfigured,
-		valid: false,
-		error: "Configure either a discount percentage or a fixed promotional price, not both."
-	};
-	if (original == null) return {
-		...unconfigured,
-		valid: false,
-		error: "Original price is required to show discounts and savings."
-	};
-	if (!Number.isFinite(original) || original <= 0) return {
-		...unconfigured,
-		valid: false,
-		error: "Original price must be a positive number."
-	};
-	let finalPrice = null;
-	let savings = null;
-	let discountPercent = null;
-	if (percent != null) {
-		if (!Number.isFinite(percent) || percent < 0 || percent > 100) return {
-			...unconfigured,
-			valid: false,
-			error: "Discount percentage must be between 0 and 100."
-		};
-		savings = roundForCurrency(original * percent / 100, currency);
-		finalPrice = roundForCurrency(original - savings, currency);
-		discountPercent = percent;
-	} else if (promo != null) {
-		if (!Number.isFinite(promo) || promo <= 0) return {
-			...unconfigured,
-			valid: false,
-			error: "Promotional price must be a positive number."
-		};
-		finalPrice = roundForCurrency(promo, currency);
-		if (finalPrice > original) return {
-			...unconfigured,
-			valid: false,
-			error: "Promotional price cannot be higher than the original price."
-		};
-		savings = roundForCurrency(original - finalPrice, currency);
-		discountPercent = Math.round(savings / original * 1e3) / 10;
-	}
-	return {
-		configured: true,
-		valid: true,
-		originalPrice: roundForCurrency(original, currency),
-		savings,
-		finalPrice,
-		discountPercent
-	};
-}
-/** Compute pricing for every configured offer. */
-function computeAllOffersPricing(offers) {
-	const map = /* @__PURE__ */ new Map();
-	for (const offer of offers) map.set(offer.id, computeOfferPricing(offer));
-	return map;
-}
-/** True when at least one offer has valid, configured pricing. */
-function hasConfiguredPricing(pricing) {
-	for (const p of pricing.values()) if (p.configured && p.valid && p.finalPrice != null) return true;
-	return false;
-}
-/** Lowest configured final price, for the hero's "from" price. */
-function lowestFinalPrice(pricing) {
-	const values = [...pricing.values()].filter((p) => p.configured && p.valid && p.finalPrice != null).map((p) => p.finalPrice);
-	return values.length ? Math.min(...values) : null;
-}
-function formatPrice(amount, currency = siteConfig.currency.default) {
-	const { symbol, decimals } = CURRENCY_INFO[currency];
-	return `${symbol}${amount.toLocaleString("en-US", {
-		minimumFractionDigits: decimals,
-		maximumFractionDigits: decimals
-	})}`;
-}
-function formatPercent(value) {
-	return Number.isInteger(value) ? `${value}%` : `${value}%`;
-}
-/**
-* "BEST VALUE" may only be shown when one offer genuinely gives the most
-* discount for the displayed conditions (highest effective discount).
-* With placeholder/unconfigured pricing, no badge is ever shown.
-*/
-function findBestValueOfferId(offers, pricing) {
-	const entries = offers.map((o) => ({
-		offer: o,
-		pricing: pricing.get(o.id)
-	})).filter((e) => !!e.pricing?.configured && e.pricing.valid && e.pricing.discountPercent != null);
-	if (entries.length < 2) return null;
-	const maxDiscount = Math.max(...entries.map((e) => e.pricing.discountPercent));
-	const winners = entries.filter((e) => e.pricing.discountPercent === maxDiscount);
-	return winners.length === 1 ? winners[0]?.offer.id ?? null : null;
-}
 function buildWhatsAppUrl(message) {
 	if (!/^\d{8,15}$/.test(siteConfig.whatsapp.number)) return null;
 	return `https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(message)}`;
-}
-/**
-* Prefilled enquiry message. Only fields that are actually configured are
-* included — placeholder prices/quantities never appear as fake values.
-*/
-function buildOrderMessage(offer, pricing, currencyCode) {
-	const lines = ["Hello! I am interested in Advion Cockroach Gel Bait.", ""];
-	lines.push(`Selected offer: ${offer.name}`);
-	if (offer.quantity != null || offer.quantityLabel) lines.push(`Quantity: ${offer.quantityLabel ?? `${offer.quantity} × pack`}`);
-	if (pricing?.configured && pricing.valid) {
-		if (pricing.originalPrice != null) lines.push(`Original price: ${formatPrice(pricing.originalPrice)}`);
-		if (pricing.discountPercent != null) lines.push(`Discount: ${formatPercent(pricing.discountPercent)}`);
-		if (pricing.finalPrice != null) lines.push(`Final price: ${formatPrice(pricing.finalPrice)}`);
-		lines.push(`Currency: ${currencyCode}`);
-	}
-	lines.push("", "My delivery location is: [CUSTOMER TO PROVIDE]", "");
-	lines.push("Please confirm availability, delivery charges, applicable product restrictions, and payment options.");
-	return lines.join("\n");
 }
 /** Generic enquiry message (no selected offer). */
 function buildGeneralEnquiryMessage() {
@@ -345,17 +173,9 @@ function SiteHeader() {
 		})
 	});
 }
-var product_placeholder_default = "/assets/product-placeholder-WiQx_7W5.png";
-/**
-* Product-first hero. Short and conversion-focused: visitors move straight
-* to the four offer cards below — no long descriptions or FAQs here.
-*/
-function Hero() {
-	const pricing = computeAllOffersPricing(siteConfig.offers);
-	const fromPrice = lowestFinalPrice(pricing);
-	const anyConfigured = hasConfiguredPricing(pricing);
+function ProductHero({ product }) {
+	const orderMessage = `Hello, I'd like to order ${product.productName}.`;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-		id: "top",
 		className: "relative overflow-hidden",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "pointer-events-none absolute inset-0 -z-10",
@@ -364,20 +184,20 @@ function Hero() {
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "order-1 mx-auto w-full max-w-md md:max-w-none",
+				className: "mx-auto w-full max-w-md md:max-w-none",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-					src: product_placeholder_default,
+					src: product.image,
 					width: 1024,
 					height: 1024,
-					alt: "Advion Cockroach Gel Bait — gel applicator and product packaging",
+					alt: `${product.productName} packaging`,
 					className: "mx-auto w-full max-w-sm rounded-3xl shadow-lg md:max-w-md",
 					fetchPriority: "high"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 					className: "mt-3 text-center text-xs text-muted-foreground",
-					children: "Placeholder product photo — the seller's authentic Advion packaging photo is added before launch."
+					children: "Placeholder product photo. The seller's authentic packaging photo is added before launch."
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "order-2 text-center md:text-left",
+				className: "text-center md:text-left",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 						className: "inline-flex items-center gap-1.5 rounded-full bg-brand-green-soft px-3 py-1 text-xs font-semibold text-brand-green-foreground",
@@ -386,253 +206,49 @@ function Hero() {
 								className: "h-3.5 w-3.5",
 								"aria-hidden": "true"
 							}),
-							siteConfig.brand.manufacturer,
-							" · Gel bait for cockroaches"
+							product.manufacturer,
+							" · ",
+							product.category
 						]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 						className: "mt-4 text-balance text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl",
-						children: "Target Cockroaches at the Source."
+						children: product.headline
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "mt-4 text-base text-muted-foreground md:text-lg",
-						children: "Explore Advion Cockroach Gel Bait by Syngenta and choose from our available special offers."
+						children: product.description
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mt-6 space-y-2",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-								className: "text-sm font-medium text-muted-foreground",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "font-bold text-foreground",
-										children: siteConfig.brand.productName
-									}),
-									" —",
-									" ",
-									siteConfig.product.formulation,
-									" · ",
-									siteConfig.product.packageSize
-								]
+						className: "mt-6 space-y-2 text-sm text-muted-foreground",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-bold text-foreground",
+								children: product.productName
 							}),
-							anyConfigured && fromPrice != null ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-								className: "text-lg",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "font-semibold text-muted-foreground",
-										children: "Starting at "
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-2xl font-extrabold text-primary",
-										children: formatPrice(fromPrice)
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "ml-1 text-xs text-muted-foreground",
-										children: siteConfig.currency.default
-									})
-								]
-							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-sm text-muted-foreground",
-								children: "Prices are being finalised — compare the four offers below and ask us anything on WhatsApp."
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-sm font-medium text-brand-green-foreground",
-								children: "Special offers are available — compare all four below."
-							})
-						]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start sm:justify-center",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							asChild: true,
-							size: "lg",
-							className: "h-12 w-full rounded-xl px-8 text-base font-bold sm:w-auto",
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-								href: "#offers",
-								children: "Compare Offers"
-							})
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(WhatsAppCta, {
-							message: buildGeneralEnquiryMessage(),
-							variant: "outline",
-							size: "lg",
-							className: "h-12 w-full rounded-xl px-6 text-base font-semibold sm:w-auto",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { "aria-hidden": "true" }), "Ask on WhatsApp"]
-						})]
-					})
-				]
-			})]
-		})]
-	});
-}
-function quantityText(offer) {
-	if (offer.quantityLabel) return offer.quantityLabel;
-	if (offer.quantity != null) return `${offer.quantity} × pack`;
-	return "Quantity to be confirmed";
-}
-function PriceRow({ offer, pricing }) {
-	const currency = siteConfig.currency.default;
-	if (!pricing.configured) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "rounded-xl border border-dashed border-border bg-muted/50 px-3 py-4 text-center",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-			className: "text-sm font-semibold text-muted-foreground",
-			children: "Price to be confirmed"
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-			className: "mt-1 text-xs text-muted-foreground",
-			children: "Offer pricing is not configured yet — this is not a live offer."
-		})]
-	});
-	if (!pricing.valid) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "rounded-xl border border-dashed border-destructive/40 bg-destructive/5 px-3 py-4 text-center",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-			className: "text-xs font-medium text-destructive",
-			children: "Offer pricing is misconfigured and hidden until fixed."
-		})
-	});
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "flex items-baseline justify-center gap-2",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "text-3xl font-extrabold tracking-tight",
-				children: formatPrice(pricing.finalPrice)
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "text-xs font-medium text-muted-foreground",
-				children: currency
-			})]
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mt-1 flex items-center justify-center gap-2 text-sm",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "text-muted-foreground line-through",
-				children: formatPrice(pricing.originalPrice)
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-				className: "rounded-full bg-brand-green px-2 py-0.5 text-xs font-bold text-brand-green-foreground",
-				children: ["Save ", formatPrice(pricing.savings)]
-			})]
-		}),
-		pricing.discountPercent != null && pricing.discountPercent > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-			className: "mt-1.5 text-center text-xs font-semibold text-brand-green-foreground",
-			children: [formatPercent(pricing.discountPercent), " off the original price"]
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-			className: "mt-1 text-center text-[11px] text-muted-foreground",
-			children: ["Original price · ", currency]
-		})
-	] });
-}
-function OfferCard({ offer, pricing, selected, bestValue, onSelect }) {
-	const buttonMessage = buildOrderMessage(offer, pricing, siteConfig.currency.default);
-	const priceConfigured = pricing.configured && pricing.valid;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
-		className: cn("relative flex h-full flex-col rounded-2xl border bg-card p-5 text-center shadow-sm transition-all", selected ? "border-primary ring-2 ring-primary ring-offset-2 ring-offset-background" : "border-border hover:border-primary/50 hover:shadow-md"),
-		"aria-pressed": selected,
-		children: [
-			bestValue && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-secondary px-3 py-1 text-[11px] font-bold text-secondary-foreground shadow",
-				children: "BEST VALUE"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-				type: "button",
-				onClick: () => onSelect(offer.id),
-				className: "absolute inset-0 z-0 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-				"aria-pressed": selected,
-				"aria-label": `Select ${offer.name}`,
-				title: selected ? "Selected" : "Select this offer"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative z-10 flex flex-1 flex-col pointer-events-none",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "mx-auto inline-flex items-center gap-1.5 self-start rounded-full bg-brand-green px-3 py-1 text-xs font-bold text-brand-green-foreground",
-						children: offer.name
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-						src: product_placeholder_default,
-						width: 1024,
-						height: 1024,
-						alt: "",
-						loading: "lazy",
-						className: "mx-auto my-4 h-24 w-24 rounded-xl object-cover"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-sm font-medium",
-						children: quantityText(offer)
-					}),
-					offer.terms && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-1 text-xs text-muted-foreground",
-						children: offer.terms
+							":",
+							" ",
+							product.formulation,
+							" · ",
+							product.packageSize
+						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: ["Target pests: ", product.targetPests.join(", ")] })]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "mt-4 flex-1",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(PriceRow, {
-							offer,
-							pricing
+						className: "mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(WhatsAppCta, {
+							message: orderMessage,
+							variant: "default",
+							size: "lg",
+							className: "h-12 w-full rounded-xl px-8 text-base font-bold sm:w-auto",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { "aria-hidden": "true" }), "Order on WhatsApp"]
 						})
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(WhatsAppCta, {
-						message: buttonMessage,
-						variant: priceConfigured ? "default" : "outline",
-						size: "lg",
-						className: "pointer-events-auto mt-5 h-11 w-full rounded-xl text-sm font-bold",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { "aria-hidden": "true" }), priceConfigured ? "Order This Offer" : "Ask About This Offer"]
-					}),
-					selected && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						className: "mt-3 inline-flex items-center justify-center gap-1 text-xs font-semibold text-primary",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
-							className: "h-3.5 w-3.5",
-							"aria-hidden": "true"
-						}), "Selected — order below or from the bar at the bottom"]
 					})
 				]
-			})
-		]
+			})]
+		})]
 	});
 }
-/**
-* The most important sales section — the four discount cards sit directly
-* below the hero with no intervening content.
-*/
-function OffersSection({ selectedOfferId, onSelect }) {
-	const pricing = computeAllOffersPricing(siteConfig.offers);
-	const bestValueId = findBestValueOfferId(siteConfig.offers, pricing);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-		id: "offers",
-		"aria-labelledby": "offers-heading",
-		className: "scroll-mt-24 bg-background py-14",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto max-w-6xl px-4",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "text-center",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-						id: "offers-heading",
-						className: "inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight sm:text-3xl",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PiggyBank, {
-							className: "h-6 w-6 text-brand-green",
-							"aria-hidden": "true"
-						}), "Choose Your Best Offer"]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mx-auto mt-2 max-w-xl text-muted-foreground",
-						children: "Compare our four promotional offers and select the option that suits you."
-					})]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4",
-					children: siteConfig.offers.map((offer) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OfferCard, {
-						offer,
-						pricing: pricing.get(offer.id),
-						selected: selectedOfferId === offer.id,
-						bestValue: bestValueId === offer.id,
-						onSelect
-					}, offer.id))
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-8 text-center text-xs text-muted-foreground",
-					children: "Selecting an offer prepares a WhatsApp enquiry with that offer's details — it is not a completed order or payment. Availability, delivery charges and payment options are confirmed on WhatsApp."
-				})
-			]
-		})
-	});
-}
+var product_placeholder_default = "/assets/product-placeholder-WiQx_7W5.png";
 function Bullet({ icon, children, className }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: cn("flex items-start gap-3 text-sm leading-relaxed", className),
@@ -1506,58 +1122,6 @@ function SiteFooter() {
 	});
 }
 /**
-* Compact sticky bottom bar (mobile only) showing the selected offer's price
-* and an ordering button. The floating WhatsApp control sits above it.
-*/
-function StickyOrderBar({ selectedOfferId }) {
-	const offer = siteConfig.offers.find((o) => o.id === selectedOfferId) ?? null;
-	const pricing = offer ? computeAllOffersPricing(siteConfig.offers).get(offer.id) : void 0;
-	const priceConfigured = pricing?.configured && pricing.valid && pricing.finalPrice != null;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		className: "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur md:hidden",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "flex items-center justify-between gap-3 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "min-w-0",
-				children: offer ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "truncate text-xs font-semibold",
-					children: offer.name
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-sm font-extrabold",
-					children: priceConfigured ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-						formatPrice(pricing.finalPrice),
-						" ",
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[10px] font-medium text-muted-foreground",
-							children: siteConfig.currency.default
-						})
-					] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-xs font-medium text-muted-foreground",
-						children: "Price to be confirmed"
-					})
-				})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "text-xs text-muted-foreground",
-					children: "Select an offer above"
-				})
-			}), offer ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(WhatsAppCta, {
-				message: buildOrderMessage(offer, pricing, siteConfig.currency.default),
-				size: "sm",
-				className: "h-10 shrink-0 rounded-lg px-4 text-sm font-bold",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { "aria-hidden": "true" }), "Order"]
-			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				asChild: true,
-				variant: "outline",
-				size: "sm",
-				className: "h-10 shrink-0 rounded-lg px-4 text-sm font-semibold",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-					href: "#offers",
-					children: "Choose an offer"
-				})
-			})]
-		})
-	});
-}
-/**
 * Floating WhatsApp button, fixed to the bottom-right. On mobile it sits
 * above the sticky order bar so neither control is obscured.
 */
@@ -1578,25 +1142,54 @@ function FloatingWhatsApp() {
 		})]
 	});
 }
-/**
-* Single-product sales page. Section order is fixed by the seller's spec:
-* announcement bar → header → hero → four offer cards → product details →
-* how to use → review carousel → support → FAQ → final CTA → footer.
-* The four offer cards sit directly below the hero with nothing in between.
-*/
+var products = [{
+	slug: "cockroach-gel-bait",
+	productName: "Advion Demo Cockroach Gel Bait",
+	manufacturer: "Syngenta",
+	category: "Gel bait for cockroaches",
+	headline: "Target Cockroaches at the Source.",
+	description: "Placeholder description for the cockroach product.",
+	formulation: "Gel bait",
+	packageSize: "30 g syringe applicator",
+	targetPests: ["Cockroaches"],
+	image: "/assets/cockroachgel-BXHfs295.jpg"
+}, {
+	slug: "insect-gel-bait",
+	productName: "Advion Demo Insect Gel Bait",
+	manufacturer: "Syngenta",
+	category: "Gel bait for insects",
+	headline: "Target Insects at the Source.",
+	description: "Placeholder description for the insect product.",
+	formulation: "Gel bait",
+	packageSize: "30 g syringe applicator",
+	targetPests: ["Insects"],
+	image: "/assets/insectgel-COnrEKZn.jpg"
+}];
 function Index() {
-	const [selectedOfferId, setSelectedOfferId] = (0, import_react.useState)(null);
+	const [selectedSlug, setSelectedSlug] = (0, import_react.useState)(products[0].slug);
+	const selected = products.find((p) => p.slug === selectedSlug) ?? products[0];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnnouncementBar, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteHeader, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(OffersSection, {
-					selectedOfferId,
-					onSelect: setSelectedOfferId
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "mx-auto max-w-5xl px-4 pt-12 text-center",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "text-lg font-semibold text-muted-foreground",
+						children: "Choose a product"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-4 flex flex-wrap justify-center gap-3",
+						children: products.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setSelectedSlug(product.slug),
+							"aria-pressed": selected.slug === product.slug,
+							className: selected.slug === product.slug ? "rounded-xl border-2 border-primary bg-primary px-5 py-2 font-bold text-primary-foreground" : "rounded-xl border-2 border-border bg-card px-5 py-2 font-bold hover:border-primary/50",
+							children: product.productName
+						}, product.slug))
+					})]
 				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProductHero, { product: selected }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProductDetails, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(HowToUse, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReviewsCarousel, {}),
@@ -1605,11 +1198,6 @@ function Index() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FinalCta, {})
 			] }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "h-16 md:hidden",
-				"aria-hidden": "true"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StickyOrderBar, { selectedOfferId }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FloatingWhatsApp, {})
 		]
 	});

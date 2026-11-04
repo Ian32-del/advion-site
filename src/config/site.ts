@@ -65,7 +65,7 @@ export const siteConfig = {
   // WhatsApp contact — international format, digits ONLY (e.g. "254712345678").
   // While empty, all live ordering links are disabled by the site.
   whatsapp: {
-    number: "", // ← CONFIGURE BEFORE LAUNCH
+    number: "254743916374", // ← CONFIGURE BEFORE LAUNCH
   },
 
   currency: {
