@@ -47,6 +47,9 @@ export function ProductHero({ product }: { product: Product }) {
               {product.formulation} · {product.packageSize}
             </p>
             <p>Target pests: {product.targetPests.join(", ")}</p>
+            <p className="text-2xl font-extrabold text-primary">
+                {product.price != null ? `KSh ${product.price.toLocaleString()}` : "Price to be confirmed"}
+            </p>
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row md:justify-start">

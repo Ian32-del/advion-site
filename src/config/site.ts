@@ -62,6 +62,10 @@ export const siteConfig = {
     tagline: "Target cockroaches at the source",
   },
 
+  // Full public URL of the live site. Used for WhatsApp link previews.
+  // Change to your custom domain once it's connected.
+  siteUrl: "https://adviongel.netlify.app",
+
   // WhatsApp contact — international format, digits ONLY (e.g. "254712345678").
   // While empty, all live ordering links are disabled by the site.
   whatsapp: {

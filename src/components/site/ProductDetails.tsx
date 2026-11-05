@@ -10,9 +10,10 @@ import {
 import productImage from "@/assets/product-placeholder.png";
 import { siteConfig } from "@/config/site";
 import { Bullet } from "@/components/site/Bullet";
+import { Product } from "@/config/products";
 
 /** Product details & benefits — placed below the offer cards, two-column on desktop. */
-export function ProductDetails() {
+export function ProductDetails({ product }: { product: Product }) {
   const p = siteConfig.product;
 
   return (
