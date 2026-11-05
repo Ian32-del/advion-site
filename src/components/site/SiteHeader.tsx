@@ -44,8 +44,8 @@ export function SiteHeader() {
             className="h-9 rounded-lg px-3 sm:px-4"
           >
             <MessageCircle aria-hidden="true" />
-            <span className="hidden sm:inline">Order on WhatsApp</span>
-            <span className="sm:hidden">Order</span>
+            {/* <span className="hidden sm:inline">Order on WhatsApp</span> */}
+            {/* <span className="sm:hidden">Order</span> */}
           </WhatsAppCta>
         ) : (
           <Button
