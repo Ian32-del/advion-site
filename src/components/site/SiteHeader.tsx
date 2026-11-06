@@ -1,11 +1,6 @@
 import { MessageCircle } from "lucide-react";
-import { isWhatsAppConfigured } from "@/config/site";
-import { buildGeneralEnquiryMessage } from "@/lib/whatsapp";
-import { WhatsAppCta } from "@/components/site/WhatsAppCta";
-import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
-  { href: "#details", label: "Product Details" },
   { href: "#how-to-use", label: "How to Use" },
   { href: "#reviews", label: "Reviews" },
   { href: "#faqs", label: "FAQs" },
@@ -14,8 +9,8 @@ const NAV_LINKS = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-card/90 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Advion Cockroach Gel Bait — home">
+      <div className="mx-auto grid h-14 max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-4">
+        <a href="#top" className="flex items-center gap-2.5" aria-label="Advion Gel Bait by Syngenta, home">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-green text-sm font-extrabold text-brand-green-foreground">
             A
           </span>
@@ -37,29 +32,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {isWhatsAppConfigured() ? (
-          <WhatsAppCta
-            message={buildGeneralEnquiryMessage()}
-            size="sm"
-            className="h-9 rounded-lg px-3 sm:px-4"
-          >
-            <MessageCircle aria-hidden="true" />
-            {/* <span className="hidden sm:inline">Order on WhatsApp</span> */}
-            {/* <span className="sm:hidden">Order</span> */}
-          </WhatsAppCta>
-        ) : (
-          <Button
-            variant="whatsapp"
-            size="sm"
-            className="h-9 rounded-lg px-3 sm:px-4"
-            disabled
-            title="Ordering opens once the seller's WhatsApp number is connected."
-          >
-            <MessageCircle aria-hidden="true" />
-            <span className="hidden sm:inline">Order on WhatsApp</span>
-            <span className="sm:hidden">Order</span>
-          </Button>
-        )}
+        <div aria-hidden="true" />
       </div>
     </header>
   );

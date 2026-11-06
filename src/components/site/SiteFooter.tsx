@@ -26,8 +26,7 @@ export function SiteFooter() {
             {siteConfig.product.packageSize}
           </p>
           <p className="mt-2 text-xs text-muted-foreground">
-            Advion is a product of Syngenta. All trademarks belong to their respective owners. This site is
-            operated by an independent seller.
+            Advion is a product of Syngenta. All trademarks belong to their respective owners. 
           </p>
         </div>
 
@@ -72,8 +71,20 @@ export function SiteFooter() {
             </ul>
           ) : (
             <p className="mt-3 text-sm text-muted-foreground">
-              Seller contact details are being configured and will be published here before launch. Until
-              then, use WhatsApp for all enquiries.
+              {siteConfig.contact.phone ? (
+                <>
+                  Phone:{" "}
+                  <a href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`} className="font-semibold text-foreground underline">
+                    {siteConfig.contact.phone}
+                  </a>
+                  . You can also use WhatsApp for all enquiries.
+                </>
+              ) : (
+                <>
+                  Seller contact details are being configured and will be published here before launch. Until then, use WhatsApp
+                  for all enquiries.
+                </>
+              )}
             </p>
           )}
         </div>

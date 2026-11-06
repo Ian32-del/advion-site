@@ -184,7 +184,7 @@ export const siteConfig = {
 
   // ── Seller contact details (shown in the footer) ────────────
   contact: {
-    businessName: "", // ← CONFIGURE BEFORE LAUNCH
+    businessName: "+254 743 916 374", // ← CONFIGURE BEFORE LAUNCH
     phone: "",
     email: "",
     location: "",

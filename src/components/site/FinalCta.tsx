@@ -1,7 +1,6 @@
 import { MessageCircle, ShoppingBasket } from "lucide-react";
 import { buildGeneralEnquiryMessage } from "@/lib/whatsapp";
 import { WhatsAppCta } from "@/components/site/WhatsAppCta";
-import { Button } from "@/components/ui/button";
 
 /** Final conversion section near the bottom of the page. */
 export function FinalCta() {
@@ -24,12 +23,7 @@ export function FinalCta() {
             <MessageCircle aria-hidden="true" />
             Order on WhatsApp
           </WhatsAppCta>
-          <Button asChild variant="outline" size="lg" className="h-12 rounded-xl px-6 text-base font-semibold">
-            <a href="#offers">
-              <ShoppingBasket aria-hidden="true" />
-              Compare Offers
-            </a>
-          </Button>
+        
         </div>
       </div>
     </section>

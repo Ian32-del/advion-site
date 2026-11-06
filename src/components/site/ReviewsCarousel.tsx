@@ -100,9 +100,7 @@ export function ReviewsCarousel() {
         </Carousel>
 
         <div className="mt-10 text-center">
-          <Button asChild size="lg" className="h-12 rounded-xl px-8 text-base font-bold">
-            <a href="#offers">Explore Offers</a>
-          </Button>
+          
         </div>
       </div>
     </section>

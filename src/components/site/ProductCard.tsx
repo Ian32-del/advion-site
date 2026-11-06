@@ -37,7 +37,7 @@ export function ProductCard({ product }: { product: Product }) {
 
       <WhatsAppCta
         message={orderMessage}
-        variant="default"
+        variant="whatsapp"
         size="lg"
         className="mt-5 h-12 w-full rounded-xl text-base font-bold"
       >
