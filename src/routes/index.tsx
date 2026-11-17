@@ -3,12 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { ProductCard } from "@/components/site/ProductCard";
 import { HowToUse } from "@/components/site/HowToUse";
-import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 import { SupportSection } from "@/components/site/SupportSection";
 import { FaqSection } from "@/components/site/FaqSection";
-import { FinalCta } from "@/components/site/FinalCta";
+// import { FinalCta } from "@/components/site/FinalCta";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
+// import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { products } from "@/config/products";
 
 export const Route = createFileRoute("/")({
@@ -38,13 +37,12 @@ function Index() {
           </div>
         </section>
         <HowToUse />
-        <ReviewsCarousel />
         <SupportSection />
         <FaqSection />
-        <FinalCta />
+        {/* <FinalCta /> */}
       </main>
       <SiteFooter />
-      <FloatingWhatsApp />
+      {/* <FloatingWhatsApp /> */}
     </div>
   );
 }

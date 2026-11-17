@@ -15,20 +15,20 @@ export const Route = createFileRoute("/delivery-returns")({
 
 function PolicyPage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16">
-      <h1 className="text-3xl font-extrabold tracking-tight">Delivery &amp; Returns</h1>
-      <div className="mt-6 rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-sm text-muted-foreground">
-        <p className="font-semibold text-foreground">Draft policy — to be completed by the seller.</p>
-        <p className="mt-3">
-          Before launch, the seller should publish here: confirmed local delivery areas, delivery charges and
-          estimated times, regional and international shipping arrangements (only once confirmed), how returns
-          and refunds are handled, and any product restrictions on sale or shipment by country. No free
-          shipping or delivery guarantees are promised until configured.
-        </p>
-      </div>
-      <a href="/" className="mt-8 inline-block text-sm font-semibold text-primary hover:underline">
-        ← Back to the offers
-      </a>
+    <main className="mx-auto max-w-3xl px-4 py-16 space-y-6 text-sm leading-relaxed text-muted-foreground">
+      <h1 className="text-3xl font-extrabold tracking-tight text-foreground">Delivery &amp; Returns</h1>
+      <h2 className="text-lg font-bold text-foreground">Delivery areas</h2>
+      <p>[Seller to list the areas served and confirm them before launch.]</p>
+      <h2 className="text-lg font-bold text-foreground">Charges and timing</h2>
+      <p>[Seller to state delivery charges and estimated delivery times, or say they are confirmed on WhatsApp.]</p>
+      <h2 className="text-lg font-bold text-foreground">International orders</h2>
+      <p>
+        International delivery are currently offered. Enquiries are welcome, and we will confirm product
+        registration, import rules and shipping costs before any order is accepted.
+      </p>
+      <h2 className="text-lg font-bold text-foreground">Returns and refunds</h2>
+      <p>[Seller to state the returns and refunds policy, for example whether damaged or incorrect items can be replaced.]</p>
+      <a href="/" className="inline-block font-semibold text-primary hover:underline">← Back to home</a>
     </main>
   );
 }

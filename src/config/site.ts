@@ -69,7 +69,7 @@ export const siteConfig = {
   // WhatsApp contact — international format, digits ONLY (e.g. "254712345678").
   // While empty, all live ordering links are disabled by the site.
   whatsapp: {
-    number: "254743916374", // ← CONFIGURE BEFORE LAUNCH
+    number: "254142030421", // ← CONFIGURE BEFORE LAUNCH
   },
 
   currency: {
@@ -177,30 +177,53 @@ export const siteConfig = {
       // Never promise international shipping — enquiries only, until confirmed.
       acceptingEnquiries: true,
       note:
-        "International delivery is not confirmed. Send a WhatsApp enquiry with your location and we will check product registration, import restrictions, shipping arrangements and total cost.",
+        "International delivery is confirmed. Send a WhatsApp enquiry with your location and we will check product registration, import restrictions, shipping arrangements and total cost.",
     },
     paymentMethods: [] as string[],
   },
 
   // ── Seller contact details (shown in the footer) ────────────
   contact: {
-    businessName: "+254 743 916 374", // ← CONFIGURE BEFORE LAUNCH
-    phone: "",
+    businessName: "", // ← CONFIGURE BEFORE LAUNCH
+    phone: " 0142030421",
     email: "",
     location: "",
   },
+
+  social: {
+  instagram: "https://www.instagram.com/adviongelke?xtok=MXY1ejNuY296OGhuMw%3D%3D", 
+  tiktok: "https://www.tiktok.com/@allthingshubke?_r=1&_t=ZS-9BUKeURideu",     
+},
 
   // ── Customer reviews ────────────────────────────────────────
   // Placeholders are shown clearly as placeholders. Replace them
   // with genuine, permitted reviews and photos before launch.
   reviews: [
-    { id: "review-1", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-    { id: "review-2", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-    { id: "review-3", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-    { id: "review-4", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-    { id: "review-5", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-    { id: "review-6", text: null, name: null, rating: null, photoUrl: null, verifiedPurchase: false },
-  ] as ReviewPlaceholder[],
+  {
+    id: "review-1",
+    text: "I got the package and used it this morning. I found lots of dead roaches. I'm very impressed.",
+    name: "Customer name (with permission)",
+    rating: null,
+    photoUrl: null,
+    verifiedPurchase: false,
+  },
+  {
+    id: "review-2",
+    text: "Thanks for restoring my home. A week later I have only seen one tiny one since three days ago.",
+    name: "Customer name (with permission)",
+    rating: null,
+    photoUrl: null,
+    verifiedPurchase: false,
+  },
+  {
+    id: "review-3",
+    text: "It's been 8 months since I used the gel. No cockroaches. Thank you.",
+    name: "Customer name (with permission)",
+    rating: null,
+    photoUrl: null,
+    verifiedPurchase: false,
+  },
+],
 
   // FAQ content lives in src/config/faq.ts so it stays readable.
 } satisfies Record<string, unknown>;

@@ -55,27 +55,35 @@ export const products: Product[] = [
   },
   {
     slug: "insect-gel-bait",
-    productName: "Advion Demo Insect Gel Bait",
+    productName: "Advion Ant Gel Bait",
     manufacturer: "Syngenta",
-    category: "Gel bait for insects",
-    headline: "Target Insects at the Source.",
+    category: "Gel bait for ants",
+    headline: "Target Ants at the Source.",
     description: "Placeholder description for the insect product.",
     formulation: "Gel bait",
     packageSize: "30 g syringe applicator",
-    targetPests: ["Insects"],
+    targetPests: ["Ants"],
     image: productImageInsect,
     price: 3000,
     about: {
       intro:
-        "Advion Demo Insect Gel Bait by Syngenta is a placeholder description. Replace with the verified product summary once the real details are provided.",
+        "Advion Ant Gel by Syngenta is an indoxacarb-based gel bait for controlling ants in residential, institutional, commercial and industrial areas.",
       specs: [
-        { label: "Formulation & package", value: "Gel bait · 30 g syringe applicator" },
-        { label: "Active ingredient", value: "To be confirmed" },
-        { label: "Target pests", value: "To be confirmed" },
-        { label: "Application locations", value: "To be confirmed" },
-        { label: "Storage & handling", value: "To be confirmed" },
+        { label: "Formulation & package", value: "Gel bait · 30 g (1.06 oz) syringe applicator" },
+        { label: "Active ingredient", value: "Indoxacarb 0.05%" },
+        { label: "Target pests", value: "Ants" },
+        {
+          label: "Application locations",
+          value:
+            "Single and multi-family residential buildings, schools, commercial and industrial facilities, warehouses, apartments, supermarkets, restaurants, motels, hotels, hospitals, food handling and storage establishments, and transportation equipment such as aircraft, trains, ships, boats and buses",
+        },
+        {
+          label: "Storage & handling",
+          value: "Keep out of reach of children. Do not treat areas that are easily accessible to children. Follow the label.",
+        },
       ],
-      warning: "Always follow the official product label and safety data sheet for your market before use.",
+      warning:
+        "Always follow the official product label and safety data sheet for your market before use. Use is restricted to the sites and users stated on the label. Confirm registration in your market before sale.",
     },
   },
 ];

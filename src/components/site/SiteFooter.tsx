@@ -1,11 +1,20 @@
-import { Mail, MapPin, Phone, ShieldAlert } from "lucide-react";
+import { Instagram, Mail, MapPin, Phone, ShieldAlert } from "lucide-react";
 import { siteConfig } from "@/config/site";
+
 
 const POLICY_LINKS = [
   { to: "/privacy", label: "Privacy Policy" },
   { to: "/terms", label: "Terms & Conditions" },
   { to: "/delivery-returns", label: "Delivery & Returns" },
 ];
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43V8.95a8.16 8.16 0 0 0 4.77 1.52V7.05a4.8 4.8 0 0 1-1-.36z" />
+    </svg>
+  );
+}
 
 export function SiteFooter() {
   const { contact } = siteConfig;
@@ -22,12 +31,11 @@ export function SiteFooter() {
             <span className="text-sm font-bold">Advion Gel Bait</span>
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            {siteConfig.brand.productName} by {siteConfig.brand.manufacturer} · {siteConfig.product.formulation} ·{" "}
-            {siteConfig.product.packageSize}
+            Advion gel bait products by {siteConfig.brand.manufacturer}, for cockroach and ant control.
           </p>
-          <p className="mt-2 text-xs text-muted-foreground">
+          {/* <p className="mt-2 text-xs text-muted-foreground">
             Advion is a product of Syngenta. All trademarks belong to their respective owners. 
-          </p>
+          </p> */}
         </div>
 
         <div>
@@ -49,23 +57,71 @@ export function SiteFooter() {
         </div>
 
         <div>
+          <h2 className="text-sm font-bold">Follow us</h2>
+          <ul className="mt-3 space-y-3 text-sm text-muted-foreground">
+            {siteConfig.social.instagram && (
+              <li>
+                <a
+                  href={siteConfig.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <Instagram className="h-4 w-4" aria-hidden="true" />
+                  Instagram
+                </a>
+              </li>
+            )}
+            {siteConfig.social.tiktok && (
+              <li>
+                <a
+                  href={siteConfig.social.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="flex items-center gap-2 transition-colors hover:text-foreground"
+                >
+                  <TikTokIcon className="h-4 w-4" />
+                  TikTok
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+
+        
+        <div>
           <h2 className="text-sm font-bold">Contact</h2>
           {hasContact ? (
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               {contact.businessName && <li>{contact.businessName}</li>}
               {contact.phone && (
-                <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4" aria-hidden="true" /> {contact.phone}
+                <li>
+                  <a
+                    href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                    className="flex items-center gap-2 transition-colors hover:text-foreground"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    {contact.phone}
+                  </a>
                 </li>
               )}
               {contact.email && (
-                <li className="flex items-center gap-2">
-                  <Mail className="h-4 w-4" aria-hidden="true" /> {contact.email}
+                <li>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="flex items-center gap-2 transition-colors hover:text-foreground"
+                  >
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    {contact.email}
+                  </a>
                 </li>
               )}
               {contact.location && (
                 <li className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4" aria-hidden="true" /> {contact.location}
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  {contact.location}
                 </li>
               )}
             </ul>
