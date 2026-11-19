@@ -29,7 +29,7 @@ export interface Product {
 export const products: Product[] = [
   {
     slug: "cockroach-gel-bait",
-    productName: "Advion Demo Cockroach Gel Bait",
+    productName: "Advion Cockroach Gel Bait",
     manufacturer: "Syngenta",
     category: "Gel bait for cockroaches",
     headline: "Target Cockroaches at the Source.",

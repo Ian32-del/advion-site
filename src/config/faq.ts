@@ -15,16 +15,6 @@ export const faqItems: FaqItem[] = [
       "Advion Cockroach Gel Bait by Syngenta is a professional gel bait formulation used to control cockroaches at their harbourage points. See the 'About Advion Cockroach Gel Bait' section above for confirmed product characteristics.",
   },
   {
-    question: "What are the four available offers?",
-    answer:
-      "The offer section near the top of this page shows four promotional offers for the same product, each with its own name and terms. Where an offer has a confirmed package quantity, it is shown on the card; anything not yet configured is clearly marked as 'to be confirmed'.",
-  },
-  {
-    question: "How are the discounts calculated?",
-    answer:
-      "Savings = original price × discount percentage, and final price = original price − savings. Where a fixed promotional price is configured instead, the effective discount percentage is calculated from the original price. Prices are rounded to the currency's normal conventions.",
-  },
-  {
     question: "How do I order through WhatsApp?",
     answer:
       "Select one of the four offer cards, then tap 'Order This Offer'. WhatsApp opens with a prefilled message containing your selected offer and its confirmed details — you just add your delivery location and send. Opening WhatsApp is not a completed order or payment; we confirm everything with you there.",
